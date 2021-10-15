@@ -1,0 +1,26 @@
+<head>
+    <link rel="stylesheet" href="../../SharedLibraries/css/backgroundMath.css">
+</head>
+    <ul class="field" style="z-index:10">
+        <li id="ball" class="ball"></li>
+        <li id="balltwo" class="balltwo"></li>
+    </ul>
+
+    <div class="holder">
+        <div class="content">
+            <center><h1 class="title">A Dartistic Game</h1></center>
+            <center><img src="https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fwww.clipartbest.com%2Fcliparts%2Fyck%2FeEz%2FyckeEzg7i.png&f=1&nofb=1" /></center>
+            <center><h1 class="starttext" style="margin-top:40px; cursor: pointer;" onclick="javascript:startGame()">Click To Start</h1></center>
+        </div>
+        <webview class="holder" id="mainPanel" style="display:none; top:2.5%; left:2.5%; height: 95%; width:95%; box-shadow:none;" src="../SectionSelection/index.html"></webview>
+    </div>
+
+    <div class="wrapper">
+    <canvas id="geometric" height="300" width="450">
+    </canvas>
+    <div class="accent">
+    </div>
+    </div>
+    <script src="../../SharedLibraries/js/jquery.min.js"></script>
+    <script src="../../SharedLibraries/js/backgroundMath.js"></script>
+    <script src="js/main.js"></script>

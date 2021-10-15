@@ -1,0 +1,270 @@
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+
+  user-select: none;
+}
+@font-face {
+  font-family: marker;
+  src: url(../fonts/Permanent_Marker/PermanentMarker-Regular.ttf);
+}
+*{
+  user-select: none;
+  font-family: 'Marker', cursive;
+}
+html, body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  position: fixed;
+}
+body {
+  display: none;
+background-image: url("../imgs/wallpaper.jpg");
+    height: 100%;
+    margin: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden; 
+  position: fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+}
+
+.dotted {
+  position:absolute;
+  top:0;
+  left:0;
+  display:none;
+  border: 1px dotted #ff0000; 
+  border-style: none none dotted; 
+  color: #fff; 
+  background-color: #fff; 
+  transition: transform .2s ease-in-out;
+}
+
+.throwable-dart{
+  width: 100px;
+  height: 100px;
+  background-image: url("http://pngimg.com/uploads/darts/darts_PNG55.png");
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 75px);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.right-board{
+  position: absolute;
+  top:100px;
+  right:0;
+  height: 350px;
+  transform: rotate(90deg); 
+  
+}
+
+.rightInfoText{
+  position: absolute;
+  top:90px;
+  right:105px;
+  height: 350px;
+  z-index:2;
+  color: white;
+}
+
+.leftInfoText{
+  position: absolute;
+  top:90px;
+  left:80px;
+  height: 350px;
+  z-index:2;
+  color: white;
+}
+
+.leftCalculationText{
+  position: absolute;
+  top:140px;
+  left:80px;
+  height: 350px;
+  z-index:2;
+  color: white;
+}
+
+.left-board{
+  position: absolute;
+  top:100px;
+  left:0;
+  height: 350px;
+  transform: rotate(90deg); 
+}
+
+.non-throwable-dart{
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 10%;
+  left: calc(50% - 75px);
+  background-image: url("../imgs/marker.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  display:none;
+  -webkit-animation: grow 1.5s 1 linear;
+}
+@-webkit-keyframes grow {
+    from {
+        -webkit-transform : scale(4) rotate(0deg);
+    }
+    to {
+        -webkit-transform:scale(1) rotate(360deg);
+    }
+}
+
+img{transition: all .5s linear;}
+
+/**********CSS RELATED TO THROWING THE BAll/DART*****************/
+
+.field {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+  perspective: 10em;
+  transform-style: preserve-3d;
+}
+
+ .ball {
+  position: absolute;
+  bottom: -4vw;
+  height: 1vw;
+  width: 1%;
+  border-radius: 100%;
+}
+.ball:nth-child(1) {
+  left: 50vw;
+  animation: throw-1 2.25s 0.05s;
+  background: rgba(255, 187, 51, 0.95);
+  box-shadow: 0 0 0 0.75vw rgba(51, 255, 184, 0.95);
+  transform: translate3d(0, 0, 0) scale(1.5);
+}
+@keyframes throw-1 {
+  50% {
+    bottom: 300vh;
+  }
+  100% {
+    transform: translate3d(5vw, 0, -50vh) scale(0.75);
+  }
+}
+
+
+/*Storing the Slider Details*/
+.slidecontainer {
+  width: 20vw;
+  position: absolute;
+  bottom:20px;
+  left:40vw;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  background: rgba(0,0,0,0);
+  height: 25px;
+  outline: none;
+  opacity: 0.9;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 40px;
+  height: 40px;
+  background: #04AA6D;
+  cursor: default;
+  border-radius:50%;
+}
+
+.slider::-moz-range-thumb {
+  width: 40px;
+  height: 40px;
+  cursor: default;
+  border-radius:50%;
+}
+
+.slidecontainerPitch {
+  width: 10vw;
+  position: absolute;
+  bottom:20px;
+  left:60vw;
+  -webkit-transform:rotate(90deg);
+}
+
+.sliderPitch {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 25px;
+  outline: none;
+  opacity: 0.7;
+  background: #04FF6D;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.sliderPitch::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  background: #04AA6D;
+  cursor: default;
+}
+
+.sliderPitch::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  cursor: default;
+  border-radius:50%;
+}
+
+/*button stuff*/
+/*Default W3 Button Styles*/
+.button {
+  background-color: #4CAF50;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  position: absolute; 
+  bottom: 20px;
+  left:70vw;
+}
+
+.button3 {
+  background-color: transparent; 
+  color: white; 
+  border: 2px solid #f44336;
+}
+.button3:hover {
+  background-color: #f44336;
+  color: white;
+}

@@ -1,0 +1,24 @@
+{
+  "name": "CS 4500 Group Project",
+  "version": "1.0.0",
+  "description": "A game showing off darts",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "startWithTransparentOption": "electron --enable-transparent-visuals .",
+    "startWithAllOptions": "electron --enable-transparent-visuals --disable-gpu ."
+  },
+  "keywords": [
+    "darts",
+    "algorithm",
+    "tutorial"
+  ],
+  "author": "Tyler",
+  "license": "GPLv3",
+  "devDependencies": {
+    "electron": "^4.0.5"
+  },
+  "dependencies": {
+    "jquery": "^3.6.0"
+  }
+}

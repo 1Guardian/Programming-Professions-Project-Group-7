@@ -1,0 +1,41 @@
+<head>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="../../../SharedLibraries/css/whiteboard.css">
+</head>
+<body style="overflow:hidden">
+  <div id=content style="z-index:-5">
+    <div id="white-board">
+      <div class="typing-container">
+        <span id="sentence" class="sentence"></span>
+        <span id="feature-text"></span>
+        <span class="input-cursor"></span>
+      </div>
+      <div class="item button-jittery" >
+        <button style="position: absolute; top:92.5%; left:2.5%; display:none;" id="advance" onclick="callNext()">Continue</button>
+      </div>
+      <div class="item button-jittery" >
+        <a href="../../Game/index.html" style="text-decoration:none; color:black;"><button style="position: absolute; top:92.5%; left:2.5%; display:none;" id="nextSection">To Game!</button></a>
+      </div>
+      <div style="display: none; width:100%; height: 5vh; position: absolute; left: 0%; bottom: 2.5%;" id="multiplechoice">
+        <center>
+          <div class="item button-jittery" style="display: inline; margin-right: 2vw;">
+            <button id="choiceone" onclick="callNext()">Continue</button>
+          </div>
+          <div class="item button-jittery" style="display: inline; margin-right: 2vw;">
+            <button id="choicetwo" onclick="callNext()">Continue</button>
+          </div>
+          <div class="item button-jittery" style="display: inline; margin-right: 2vw;">
+            <button id="choicethree" onclick="callNext()">Continue</button>
+          </div>
+        </center>
+      </div>
+      <img id="images" style="opacity:0; border:none; position: absolute; width: 50vw; height:50vh; top: 22.5vh; left: 22.5vw" />
+      <div id="eraser"></div>
+      <div id="red-pen"></div>
+      <div id="blue-pen"></div>
+    </div>
+  </div>
+  <script src="../../../SharedLibraries/js/jquery.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="../../../SharedLibraries/js/whiteboard.js"></script>
+</body>

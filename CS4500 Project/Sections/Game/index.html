@@ -1,0 +1,41 @@
+<head>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<div class="container">
+  <!--Dart Board -->  
+  <center><img id= "board" style="height:500px" src="imgs/Dartboard-Transparent-Image.png"/></center>
+  
+  <!--Hidden Diamter Tracker-->
+  <hr class='dotted' />
+  
+  <!--interest Boxes-->
+  <img src="imgs/chalkboard.jpg" class="right-board"/><h2 class="rightInfoText">Current Score Estimate</h2>
+    <img src="imgs/chalkboard.jpg" class="left-board"/><h2 class="leftInfoText">New Diameter Calculation <br></h2><h3 class="leftCalculationText"></h3>
+
+  <!--hidden Dart object-->
+ <div class="non-throwable-dart"></div>
+  
+  <!--Throwable Ball Stuff-->
+  <ul class="field">
+    <li id="ball" class="ball2"></li>
+</ul>
+<button id="launchButton" style="display:block"onclick="stopchoiceSliding()" class="button button3">Lock In</button>
+
+<!--Slider for yaw selection-->
+<div class="slidecontainer">
+  <div style="position: absolute; top:-25%; left:0; width: 20vw; height: 150%; z-index:6;"></div>
+  <input type="range" min="40" max="60" step=".5"value="40" class="slider" id="myRange">
+</div>
+
+<!--Slider to show yaw selection-->
+<div class="slidecontainer">
+  <input type="range" min="40" max="60" step=".5"value="40" class="slider" style="display:none;"id="showingRange">
+</div>
+
+<!--Slider for the pitch selection-->
+<div class="slidecontainerPitch">
+  <input type="range" min="1" max="100" step=".5" value="0" style="display:none;" class="sliderPitch" id="pitchSlider">
+</div>
+
+<script src="../../SharedLibraries/js/jquery.min.js"></script>
+<script src="js/script.js"></script>
