@@ -35,3 +35,8 @@ This is a dart-exploratory Project for the Programming Professions.
  
  
 Prebuilt binaries are provided (of course) as revisions are made and pushed
+
+NOTE: 
+If you are using windows:
+You can either run the installer (I don't recommend since this is ALPHA software.), or you can simply go into the win-unpacked section and
+run the executable in there (I recommend this)
