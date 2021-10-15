@@ -18,7 +18,7 @@
   "author": "Group 7",
   "license": "GPLv3",
   "devDependencies": {
-    "electron": "^4.0.5",
+    "electron": "latest",
     "electron-builder": "^22.13.1"
   },
   "build": {
