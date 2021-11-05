@@ -1,4 +1,4 @@
-var i = 23;
+var i = 0;
 $( document ).ready(async function() {
     carousel(carouselText, images, "#feature-text");
   });
@@ -19,10 +19,15 @@ $( document ).ready(async function() {
     await waitForMs(300);
     await typeSentence(carouselList[i].text, eleRef);
     $("#images").attr("src", ImagesList[i].img);
-    document.getElementById("images").style.opacity = 1;
     await waitForMs(300);
     handleAdvance(i);
     i++;
+  }
+
+  document.getElementById("images").onload = function(e){
+    document.getElementById("images").style.width = "60vw";
+    document.getElementById("images").style.opacity = 1;
+    document.getElementById("images").style.height = ((document.getElementById("images").naturalHeight/document.getElementById("images").naturalWidth)*60).toString() + "vw";
   }
 
   function deleteSentence(){
