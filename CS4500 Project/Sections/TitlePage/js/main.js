@@ -6,3 +6,21 @@ function startGame(){
     document.getElementById("ball").style.display="none";
     document.getElementById("balltwo").style.display="none";
 }
+
+
+//function to show escape menu
+function Pause(){
+    var overlay = $('#overlay');
+    overlay.show();
+    $('.popup').show();
+    $('.close').click(function(){
+    $('.popup').hide();
+    overlay.hide();
+    return false;
+  });
+  $('.exitbtn').click(function(){
+    $('.popup').hide();
+    window.top.close();
+    return false;
+  });
+}
