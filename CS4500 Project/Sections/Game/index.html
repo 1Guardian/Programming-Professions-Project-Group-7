@@ -9,7 +9,7 @@
   <hr class='dotted' />
   
   <!--interest Boxes-->
-  <img src="imgs/chalkboard.jpg" class="right-board"/><h2 class="rightInfoText">Current Score Estimate</h2>
+  <img src="imgs/chalkboard.jpg" class="right-board"/><h2 class="rightInfoText">Average Score Stats<br></h2><h3 class="rightCalculationText"></h3>
     <img src="imgs/chalkboard.jpg" class="left-board"/><h2 class="leftInfoText">New Diameter Calculation <br></h2><h3 class="leftCalculationText"></h3>
 
   <!--hidden Dart object-->
@@ -18,23 +18,38 @@
   <!--Throwable Ball Stuff-->
   <ul class="field">
     <li id="ball" class="ball2"></li>
-</ul>
-<button id="launchButton" style="display:block"onclick="stopchoiceSliding()" class="button button3">Lock In</button>
+  </ul>
+  <button id="launchButton" style="display:block"onclick="stopchoiceSliding()" class="button button3">Lock In</button>
 
-<!--Slider for yaw selection-->
-<div class="slidecontainer">
-  <div style="position: absolute; top:-25%; left:0; width: 20vw; height: 150%; z-index:6;"></div>
-  <input type="range" min="40" max="60" step=".5"value="40" class="slider" id="myRange">
+  <!--Slider for yaw selection-->
+  <div class="slidecontainer">
+    <div style="position: absolute; top:-25%; left:0; width: 20vw; height: 150%; z-index:6;"></div>
+    <input type="range" min="40" max="60" step=".5"value="40" class="slider" id="myRange">
+  </div>
+
+  <!--Slider to show yaw selection-->
+  <div class="slidecontainer">
+    <input type="range" min="40" max="60" step=".5"value="40" class="slider" style="display:none;"id="showingRange">
+  </div>
+
+  <!--Slider for the pitch selection-->
+  <div class="slidecontainerPitch">
+    <input type="range" min="1" max="100" step=".5" value="0" style="display:none;" class="sliderPitch" id="pitchSlider">
+  </div>
+
 </div>
-
-<!--Slider to show yaw selection-->
-<div class="slidecontainer">
-  <input type="range" min="40" max="60" step=".5"value="40" class="slider" style="display:none;"id="showingRange">
-</div>
-
-<!--Slider for the pitch selection-->
-<div class="slidecontainerPitch">
-  <input type="range" min="1" max="100" step=".5" value="0" style="display:none;" class="sliderPitch" id="pitchSlider">
+<!--simple Popup to explain controls and first free-shot-->
+<div id="overlay" style="position: absolute; top:0; left:0; width:100vw; height: 100vh; z-index:2; background-color:black; opacity:0.7;"></div>
+<div class='popup'>
+  <div class='cmt223'>
+    <h1 class="headerTitle">Game Instructions</h1>
+    <p class="textToUpdate">
+      This is a simple game of darts. However, <br>since the controls may seem a bit foreign to <br>some people, the first throw is completely <br>penalty free, if you miss it you lose nothing! <br>To launch the dart, press the button in the bottom <br>right when the ball is in the spot you want on the bottom of <br>the screen, then choose how hard to throw it and hit <br>the button again and your dart will go flying! The game <br>ends when you miss a dart throw. <br>Happy Playing!
+    <br/>
+    <br/>
+    <a href='' class='close'>Okay!</a>
+    </p>
+  </div>
 </div>
 
 <script src="../../SharedLibraries/js/jquery.min.js"></script>
