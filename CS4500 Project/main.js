@@ -27,7 +27,7 @@ const { width, height } = electron.screen.getPrimaryDisplay().workAreaSize
   });
 
   parent.loadURL(MAIN_HTML);
-  parent.toggleDevTools();
+  //parent.toggleDevTools();
 };
 
 //~ app.on('ready', onAppReady);
