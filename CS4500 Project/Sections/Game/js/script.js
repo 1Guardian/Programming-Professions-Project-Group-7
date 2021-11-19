@@ -1,6 +1,33 @@
 //GLOBAL VARS
 /////////////////////////////////////
 
+//get the board's position for later use
+//Added: Phys V2
+var boardRealPosition = 0;
+var throwableX = 0;
+var throwableXStart = 0;
+var throwableY = 0;
+var throwableYStart = 0;
+document.onreadystatechange = function () {
+  if (document.readyState == "complete") {
+    setTimeout(function(){
+      boardRealPosition = $("#board").position();
+      //alert("Top position: " + boardRealPosition.top + " Left position: " + boardRealPosition.left);
+      throwableXStart = boardRealPosition.left;
+      throwableYStart = boardRealPosition.top;
+      throwableX = boardRealPosition.left+500;
+      throwableY = boardRealPosition.top+500;
+    },500);
+  }
+}
+
+//vars to hold where the ball will fly to
+var ballFlyX = 0;
+var ballFlyY = 0;
+
+//throws successfully made
+successfulThrows = -1;
+
 //throwable ball
 ball = document.getElementById("ball");
 
@@ -21,6 +48,12 @@ checkNumPitch =0;
 stepping = 1;
 startedBit = -1;
 
+//flipbit to sync pre-2.0 Phys code and post 2.0 Phys code
+var lineReady = 1;
+
+//flip-bit to check if they missed a throw
+missedThrow = -2;
+
 //Target height to look for
 TargetHeight =0;
 
@@ -30,10 +63,57 @@ hasArced = -1;
 //previous motion tracker for acceleration function
 previousDartPosTop = 0;
 
+//tracking var for the check on arc
+previousPosition = 9999;
+
 //FUNCTIONS
 //////////////////////////////////////////////////
 
+//Function for Controls Overlay 
+//Credit: Pedro Benoit
+//codepen.io/pedrobenoit91
+$(function(){
+  var overlay = $('#overlay');
+  $('.popup').show();
+  $('.close').click(function(){
+  $('.popup').hide();
+  overlay.appendTo(document.body).remove();
+  return false;
+});
+
+$('.x').click(function(){
+  $('.popup').hide();
+    overlay.appendTo(document.body).remove();
+    return false;
+  });
+});
+
+//function to end the game
+function endGame(){
+
+  //update the button text
+  $('.close')[0].innerHTML = "Replay";
+
+  //update the natural text
+  $('.headerTitle')[0].innerHTML = "Game Over";
+  $('.textToUpdate')[0].innerHTML = "You scored " + parseInt(successfulThrows-1) + " points! That's an exact deviation of<br>" + parseInt(successfulThrows-1)/2 + " times from the average player!<br><br><br><br>";
+  var overlay = $('#overlay');
+  $('.cmt223').append( "<a href='' style='color:red'><h3>Replay</h3></a>" );
+
+  //fade out the container
+  $('.container').fadeOut();
+
+  //show ending screen
+  $('.popup').show();
+  $('.close').click(function(){
+  $('.popup').hide();
+  overlay.appendTo(document.body).remove();
+    return false;
+  });
+}
+
 //Starting the function on page load
+////////////////////////////////////
 TriggerSliders();
 ////////////////////////////////////
 
@@ -64,9 +144,35 @@ function throwBall(){
 
 //Function to trigger the slider's beginnings
 function TriggerSliders(){
+  //hide the marker (in the event of a miss)
+  $('.non-throwable-dart')[0].style.display = "none";
+
+  //update hasarced
+  hasArced = -1;
+
+  //increase the successful throws count
+  successfulThrows += 1;
+
+  //buffer for first two calls
+  if(missedThrow == -1){
+    missedThrow = 0;
+  }
+  else if (missedThrow == -2){
+    missedThrow = -1;
+  }
+
+  //end game if throw was missed
+  if(missedThrow == 1)
+  endGame();
+  
+  //update the flip-bit back to normal
+  if(missedThrow != -1)
+    missedThrow= 1;
+
   //update the button text & appearance
   document.getElementById("launchButton").innerHTML = "Lock In";
   document.getElementById("launchButton").style.display = "block";
+
   //bit to flip here too
   if(startedBit == -1){
     javascript:slideYaw(42, 1);
@@ -146,6 +252,10 @@ function stopchoiceSliding(){
     
     //show the pitch slider
     pitchSlider.style.display="block";
+
+    //log the number for later use 
+    //Phys V2
+    ballFlyX = showBall.value;
     
     //update the button text
     document.getElementById("launchButton").innerHTML = "Throw!";
@@ -166,6 +276,10 @@ function stopchoiceSliding(){
     
     //Set the TargetHeight
     TargetHeight = board.style.height.slice(0,-2)/100*checkNumPitch+(200-(board.style.height.slice(0,-2)/2));
+
+    //log the number for later use 
+    //Phys V2
+    ballFlyY = pitchSlider.value;
     
     //hide the button
     document.getElementById("launchButton").style.display = "none";
@@ -182,64 +296,127 @@ function stopchoiceSliding(){
   }
 } 
 
+//simple function to check if elements are overlapping
+function isObjOnObj(){
+
+  //get the board pos
+  boardAllPos = $("#board").position();
+  markerAllPos = $('.non-throwable-dart')[0];
+
+  //get board dimensions
+  boardMathObj = document.getElementById("board");
+  boardHeight = boardMathObj.style.height.slice(0,-2);
+  boardWidth = boardMathObj.style.width.slice(0,-2);
+
+  //get center of circle
+  centerPointX = boardAllPos.left+(boardWidth/2);
+  centerPointY = boardAllPos.top+(boardHeight/2);
+
+  //user marker pos to get exact point
+  markerleft = markerAllPos.style.left;
+  markertop = markerAllPos.style.top;
+
+  //get third necessary point for pythag theorem
+  thirdPointX = centerPointX;
+  thirdPointY = markertop;
+
+  //get length of ray from center to new point
+  rayLength = Math.sqrt((Math.abs(parseInt(centerPointX) - parseInt(markerleft))*Math.abs(parseInt(centerPointX) - parseInt(markerleft))) + (Math.abs(parseInt(centerPointY) - parseInt(markertop))*Math.abs(parseInt(centerPointY) - parseInt(markertop))));
+
+  //use board pos to get bounds
+  var boardl = parseInt(boardAllPos.left);
+  var boardr = (parseInt(boardAllPos.left)+parseInt(boardWidth));
+
+  //get radius length
+  radiusLength = Math.abs(boardl - boardr)/2;
+
+  //check if dart is overlapping image
+  if(rayLength <= radiusLength){
+    return true;
+  }
+
+  return false;
+}
+
 $(document).ready(function () {
    
-   //hidden dart obj
-   marker = $('.non-throwable-dart')[0];
+  //hidden dart obj
+  marker = $('.non-throwable-dart')[0];
    
-   //dartboard obj
-   board = document.getElementById("board");
-   oldCarryNumber = 0;
+  //dartboard obj
+  board = document.getElementById("board");
+  oldCarryNumber = 0;
    
-   //dotted line diameter object 
-   line = $('.dotted')[0];
+  //dotted line diameter object 
+  line = $('.dotted')[0];
    
-   //get the calculation block
-   leftCalc = $('.leftCalculationText')[0];
+  //get the calculation blocks
+  leftCalc = $('.leftCalculationText')[0];
+  rightCalc = $('.rightCalculationText')[0];
    
-   //board vars
-   board.style.height =400+"px"
-   board.style.width =400+"px"
-   boardH = board.style.height.slice(0,-2);
-   boardW = board.style.width.slice(0,-2);
-   boardR = boardW/2;
+  //board vars
+  board.style.height =400+"px"
+  board.style.width =400+"px"
+  boardH = board.style.height.slice(0,-2);
+  boardW = board.style.width.slice(0,-2);
+  boardR = boardW/2;
    
-   //Resizing the Board After throw
+  //Resizing the Board After throw
   function resize(size) {
     board.style.width = size+"px";
     board.style.height = size+"px";
   }
    
-   //check dart's position
-   //FIXME: CHANGES IN DART BOARD TARGET SIZE WILL DISRUPT THE CHECK
-   setInterval(function() {
+  //check dart's position
+  setInterval(function() {
      
     //static vars
     var dartPos = $("#ball").position();
     var dartPosTrueHeight = document.documentElement.clientHeight+dartPos.top;
-    var dispWidth = (window.innerWidth || document.documentElement.clientWidth);
-    var dispHeight = (window.innerHeight || document.documentElement.clientHeight);
      
-     //update board vars
-     boardH = board.style.height.slice(0,-2);
-     boardW = board.style.width.slice(0,-2);
-     boardR = boardW/2;
-     var trueCheckNum = (boardH / 100)*checkNumPitch;
-    if (ball.style.display != "none" /*&& document.documentElement.clientHeight-(-1*dartPos.top) <= (boardH*.8) && dartPos.left >= 0*/) {
-      //console.log(dartPosTrueHeight + " | " + TargetHeight);
-      //console.log(acceleration());
-      if(TargetHeight > dartPosTrueHeight- 20 && TargetHeight < dartPosTrueHeight+20 && ((200-(boardH/2))<dartPosTrueHeight) && (((200+boardH)-(boardH/2))>dartPosTrueHeight) && acceleration() == 1){
+    //update board vars
+    boardH = board.style.height.slice(0,-2);
+    boardW = board.style.width.slice(0,-2);
+    boardR = boardW/2;
+
+    //only trigger if the ball is currently rendered in 3D space
+    if (ball.classList.contains("ball")) {
+
+      //check if ball has reached the peak of the throw (it arced)
+      if(previousPosition > dartPosTrueHeight){
+        hasArced = 1;
+      }
+      else{
+        previousPosition = dartPosTrueHeight;
+      }
+
+      //if it is, calculate the translated position of the ball in 2.5-D Space
+      var ball3DRealPositionX = ((throwableX - throwableXStart)*((ballFlyX)/100))+throwableXStart;
+      var ball3DRealPositionY = ((throwableY - throwableYStart)*((ballFlyY)/100))+throwableYStart;
+
+      //move the marker pre-emptively to it
+      marker.style.top = ball3DRealPositionY + "px";
+      marker.style.left = ball3DRealPositionX + "px";
+
+      if(dartPosTrueHeight < ball3DRealPositionY + 50 && dartPosTrueHeight > ball3DRealPositionY - 50 && hasArced == 1){
+
+        //Place Dart on board to show throw results && hide 3d ball
+        ball.classList.remove("ball"); 
+        marker.style.display = "block";
+
+        //update the backwards-compatibility flipbit
+        setTimeout(function(){
+          lineReady=0;
+        }, 1000);
+      }
+      
+      //if the 3D rendered ball is within the bounds of the target area
+      if(lineReady == 0 && isObjOnObj()){
+
         //set timeout for setting the hasArced flipbit
         setTimeout(function(){
           hasArced=-1;
         }, 500);
-        
-        //Place Dart on board to show throw results && hide 3d ball
-        ball.classList.remove("ball"); 
-        marker.style.top = TargetHeight+"px";
-        //FIXME: NEED LEFT/RIGHT CONTROLS
-        marker.style.left = 50+"vw";
-        marker.style.display = "block";
         
         //Define the magin number that makes this all work
         //Algorithm used: 2 * sqrt(R^2 - (OriginY-pointY)^2))
@@ -279,22 +456,27 @@ $(document).ready(function () {
         //reset everything
         setTimeout(function(){
         line.style.display = "none";
+
+        //log that the throw was a successful throw
+        missedThrow = 0;
           
         //Update Curent Left Board Stats
         leftCalc.innerHTML = "Current Diameter: "+Math.floor(board.style.height.slice(0,-2))+"<br> Current Radius: " +Math.floor(board.style.height.slice(0,-2)/2);
+
+        //Update Current Right Board Stats
+        rightCalc.innerHTML = "Current Score: "+(parseInt(successfulThrows+1))+"<br><br> Chance (on Average) that <br>a Random Person Would Get <br>Another Point : " + 100*Math.pow(.5, parseInt(successfulThrows+2)) + "%<br><br> Average Calculation Equation: <br> 100*(.5)^points+1";
           
         //reset line animation frames
         line.style.top = 200;
         line.style.transform = ""; 
           }, 9000);
         }
-     } else if(TargetHeight > dartPosTrueHeight- 20 && TargetHeight < dartPosTrueHeight+20 && hasArced == 1 && ((200-(boardH/2))>dartPosTrueHeight) && (((200+boardH)-(boardH/2))<dartPosTrueHeight)){
-       alert("MISSED");
-     } else {
+     } 
+     else {
         //set timeout for setting the hasArced flipbit
         setTimeout(function(){
-          hasArced=1;
-        }, 500);
+          //hasArced=1;
+        }, 1000);
      }
     }, 50);
    
