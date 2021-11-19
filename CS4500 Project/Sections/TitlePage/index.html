@@ -1,11 +1,87 @@
 <head>
     <link rel="stylesheet" href="../../SharedLibraries/css/backgroundMath.css">
+    <style>
+        /*This controls the exit menu. It is stored here since it didn't warrant it's own CSS file*/
+        #overlay{
+            display: none;
+        }
+        .cmt223 a{
+        text-decoration: none;
+        }
+        .popup{
+        position: absolute;
+        width: 100%;
+        margin: 0 auto;
+        display: none;
+        z-index: 30;
+        }
+        .cmt223{
+        min-width: 600px;
+        width: 700px;
+        min-height: 150px;
+        margin: 100px auto;
+        background: #f3f3f3;
+        position: relative;
+        z-index: 5;
+        padding: 15px 35px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px #000;
+        }
+
+        .cmt223 p{
+        clear: both;
+            color: #555555;
+            font-size: 20px;
+            font-family: sans-serif;
+        }
+        .cmt223 p a{
+        color: #d91900;
+        font-weight: bold;
+        }
+        .cmt223 .x{
+        float: right;
+        height: 35px;
+        left: 22px;
+        position: relative;
+        top: -25px;
+        width: 34px;
+        }
+        .cmt223 .x:hover{
+        cursor: pointer;
+        }
+        .closebtn{
+            margin-right:10px;
+        }
+
+    </style>
 </head>
+
+    <!--Close button-->
+    <div onClick="javascript:Pause()"style="height: 5vh; width: 5vh; background-color:red; position:absolute; z-index: 100; right:0; top:0; color:white; border-radius: 0 0 0 200px;"></div>
+
+    <!--simple Popup to show escape options-->
+    <div id="overlay" style=" position: absolute; top:0; left:0; width:100vw; height: 100vh; z-index: 30; background-color:black; opacity:0.7;"></div>
+    <div class='popup'>
+        <div class='cmt223'>
+            <h1 class="headerTitle">Escape Options</h1>
+            <p class="textToUpdate">
+                If you need to take a break, feel free to!<br> The game isn't going anywhere so long as<br> it's paused. If you would like to exit <br>just click the 'exit' option below or <br>click 'resume' to continue in the app! If you <br>would like to go back to the title page, just click <br>the 'Home' option!
+            <br/>
+            <br/>
+            <a href='' class='close closebtn'>Resume</a>
+            <a href='' class='closebtn homebtn'>Home</a>
+            <a href='' class='closebtn exitbtn'>Exit App</a>
+            </p>
+        </div>
+    </div>
+
+    <!--Flying Darts-->
     <ul class="field" style="z-index:10">
         <li id="ball" class="ball"></li>
         <li id="balltwo" class="balltwo"></li>
     </ul>
 
+    <!--Page Holder and renderer-->
     <div class="holder">
         <div class="content">
             <center><h1 class="title">A Dartistic Game</h1></center>
@@ -15,6 +91,7 @@
         <webview class="holder" id="mainPanel" style="display:none; top:2.5%; left:2.5%; height: 95%; width:95%; box-shadow:none;" src="../SectionSelection/index.html"></webview>
     </div>
 
+    <!--Background-->
     <div class="wrapper">
     <canvas id="geometric" height="300" width="450">
     </canvas>
@@ -24,3 +101,4 @@
     <script src="../../SharedLibraries/js/jquery.min.js"></script>
     <script src="../../SharedLibraries/js/backgroundMath.js"></script>
     <script src="js/main.js"></script>
+
