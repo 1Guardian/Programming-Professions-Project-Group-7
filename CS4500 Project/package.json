@@ -35,5 +35,8 @@
     "win": {
       "target": "NSIS"
     }
+  },
+  "dependencies": {
+    "electron-log": "^4.4.1"
   }
 }
