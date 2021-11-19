@@ -75,7 +75,7 @@ background-image: url("../imgs/wallpaper.jpg");
 .rightInfoText{
   position: absolute;
   top:90px;
-  right:105px;
+  right:110px;
   height: 350px;
   z-index:2;
   color: white;
@@ -85,6 +85,15 @@ background-image: url("../imgs/wallpaper.jpg");
   position: absolute;
   top:90px;
   left:80px;
+  height: 350px;
+  z-index:2;
+  color: white;
+}
+
+.rightCalculationText{
+  position: absolute;
+  top:140px;
+  right:105px;
   height: 350px;
   z-index:2;
   color: white;
@@ -267,4 +276,50 @@ img{transition: all .5s linear;}
 .button3:hover {
   background-color: #f44336;
   color: white;
+}
+
+/*Controls Popup*/
+.cmt223 a{
+  text-decoration: none;
+  }
+.popup{
+  position: absolute;
+  width: 100%;
+  margin: 0 auto;
+  display: none;
+  z-index: 5;
+  }
+.cmt223{
+  min-width: 600px;
+  width: 700px;
+  min-height: 150px;
+  margin: 100px auto;
+  background: #f3f3f3;
+  position: relative;
+  z-index: 5;
+  padding: 15px 35px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px #000;
+  }
+
+.cmt223 p{
+  clear: both;
+      color: #555555;
+      font-size: 20px;
+      font-family: sans-serif;
+  }
+.cmt223 p a{
+  color: #d91900;
+  font-weight: bold;
+  }
+.cmt223 .x{
+  float: right;
+  height: 35px;
+  left: 22px;
+  position: relative;
+  top: -25px;
+  width: 34px;
+  }
+.cmt223 .x:hover{
+  cursor: pointer;
 }
