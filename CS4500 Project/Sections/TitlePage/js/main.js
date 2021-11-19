@@ -31,3 +31,9 @@ var h = window.innerHeight;
 
 if(w < 1800 || h < 900)
   alert("WARNING: This program was designed to run on \na 1080p screen or 1080i screen as a minimum\nsize. The app has detected you have a resolution\nsmaller than 1080p/i. The app will \nrun as normal, but you may notice graphical\nglitches due to the low resolution.");
+
+//added a console log listener
+const webview = document.querySelector('webview')
+webview.addEventListener('console-message', (e) => {
+  console.log('Guest page logged a message:', e.message)
+})
