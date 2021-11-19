@@ -24,3 +24,10 @@ function Pause(){
     return false;
   });
 }
+
+//check window size
+var w = window.innerWidth;
+var h = window.innerHeight;
+
+if(w < 1800 || h < 900)
+  alert("WARNING: This program was designed to run on \na 1080p screen or 1080i screen as a minimum\nsize. The app has detected you have a resolution\nsmaller than 1080p/i. The app will \nrun as normal, but you may notice graphical\nglitches due to the low resolution.");
