@@ -7,7 +7,6 @@ function startGame(){
     document.getElementById("balltwo").style.display="none";
 }
 
-
 //function to show escape menu
 function Pause(){
     var overlay = $('#overlay');
@@ -29,8 +28,10 @@ function Pause(){
 var w = window.innerWidth;
 var h = window.innerHeight;
 
-if(w < 1800 || h < 900)
+if(w < 1800 || h < 900){
   alert("WARNING: This program was designed to run on \na 1080p screen or 1080i screen as a minimum\nsize. The app has detected you have a resolution\nsmaller than 1080p/i. The app will \nrun as normal, but you may notice graphical\nglitches due to the low resolution.");
+  console.log("WARNING: This program was designed to run on a 1080p screen or 1080i screen as a minimum size. The app has detected you have a resolution  smaller than 1080p/i. The app will run as normal, but you may notice graphical glitches due to the low resolution.")
+}
 
 //added a console log listener
 const webview = document.querySelector('webview')
