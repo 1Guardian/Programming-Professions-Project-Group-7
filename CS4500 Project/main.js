@@ -26,3 +26,7 @@ const { width, height } = electron.screen.getPrimaryDisplay().workAreaSize
 //~ app.on('ready', onAppReady);
 app.on('ready', () => setTimeout(onAppReady, 500));
 
+
+app.on('window-all-closed', () => {
+  app.quit()
+})
