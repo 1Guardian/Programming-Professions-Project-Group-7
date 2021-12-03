@@ -1,5 +1,5 @@
 {
-  "name": "dartproject",
+  "name": "DartisticGame",
   "version": "1.0.0",
   "description": "A game showing off darts",
   "main": "main.js",
@@ -8,7 +8,7 @@
     "startWithTransparentOption": "electron --enable-transparent-visuals .",
     "startWithAllOptions": "electron --enable-transparent-visuals --disable-gpu .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist": "electron-builder --win portable"
   },
   "keywords": [
     "darts",
@@ -19,7 +19,7 @@
   "license": "GPLv3",
   "devDependencies": {
     "electron": "latest",
-    "electron-builder": "^22.13.1"
+    "electron-builder": "^22.14.5"
   },
   "build": {
     "appId": "Darts Project",
