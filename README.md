@@ -33,10 +33,10 @@ This is a dart-exploratory Project for the Programming Professions.
     Run:  npm install electron-builder --save-dev
     
   Step 5 (Windows Users):
-    For Windows users: Run: npm run dist-win
+    npm run dist-win
     
   Step 5 (Linux and MacOS Users):
-    For Linux and MacOS users: Run: npm run dist-nix
+    npm run dist-nix
     
  That's it, you should now have system binaries in a folder called ./dist
  
