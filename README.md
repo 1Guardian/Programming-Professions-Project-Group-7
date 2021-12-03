@@ -19,7 +19,7 @@ This is a dart-exploratory Project for the Programming Professions.
           IF YOU INSTALL NODEJS AND 'npm' IS NOT RECOGNIZED AS A COMMAND,
           YOU MAY NEED TO GET THE ENVIRONMENTAL VARIABLE FOR NODEJS MANUALLY.
 
-# Build Process (primarily built on windows in testing)
+# Build Process
   Step 1:
     clone this repo (git clone) or download it as a zip
     
@@ -33,7 +33,8 @@ This is a dart-exploratory Project for the Programming Professions.
     Run:  npm install electron-builder --save-dev
     
   Step 5:
-    Run: npm run dist
+    For Windows users: Run: npm run dist-win
+    For Linux and MacOS users: Run: npm run dist-nix
     
  That's it, you should now have system binaries in a folder called ./dist
  
