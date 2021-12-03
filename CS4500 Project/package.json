@@ -8,7 +8,8 @@
     "startWithTransparentOption": "electron --enable-transparent-visuals .",
     "startWithAllOptions": "electron --enable-transparent-visuals --disable-gpu .",
     "pack": "electron-builder --dir",
-    "dist": "electron-builder --win portable"
+    "dist-win": "electron-builder --win portable",
+    "dist-nix": "electron-builder"
   },
   "keywords": [
     "darts",
