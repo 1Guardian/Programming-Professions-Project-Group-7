@@ -19,7 +19,7 @@ This is a dart-exploratory Project for the Programming Professions.
           IF YOU INSTALL NODEJS AND 'npm' IS NOT RECOGNIZED AS A COMMAND,
           YOU MAY NEED TO GET THE ENVIRONMENTAL VARIABLE FOR NODEJS MANUALLY.
 
-# Build Process
+# Build Process (primarily built on windows in testing)
   Step 1:
     clone this repo (git clone) or download it as a zip
     
