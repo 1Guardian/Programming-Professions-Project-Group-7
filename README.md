@@ -14,6 +14,10 @@ This is a dart-exploratory Project for the Programming Professions.
     npm install -g electron (*NIX systems && windows)
     snap install electron (Snap-configured Linux systems)
     or download it from https://www.electronjs.org/ (windows only)
+    
+    NOTE: ON WINDOWS THE PATH ENV VARIABLES SOMETIMES DO NOT GET SET. 
+          IF YOU INSTALL NODEJS AND 'npm' IS NOT RECOGNIZED AS A COMMAND,
+          YOU MAY NEED TO GET THE ENVIRONMENTAL VARIABLE FOR NODEJS MANUALLY.
 
 # Build Process
   Step 1:
