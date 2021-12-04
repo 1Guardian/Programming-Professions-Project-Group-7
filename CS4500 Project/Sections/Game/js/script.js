@@ -444,7 +444,7 @@ $(document).ready(function () {
             
             //animation to move the line to the center of the board
             setTimeout(function(){
-            line.style.transform = "translate3d(0px, "+(-1)*(line.style.top.slice(0,-2)-200)+"px, 0px)"; 
+            line.style.transform = "translate3d(0px, "+(-1)*(line.style.top.slice(0,-2)-190)+"px, 0px)"; 
             }, 1000);
           }, 3000);
           
