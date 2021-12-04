@@ -96,7 +96,7 @@ function endGame(){
 
   //update the natural text
   $('.headerTitle')[0].innerHTML = "Game Over";
-  $('.textToUpdate')[0].innerHTML = "You scored " + parseInt(successfulThrows-1) + " points! That's an exact deviation of<br>" + parseInt(successfulThrows-1)/2 + " times from the average player!<br><br><br><br>";
+  $('.textToUpdate')[0].innerHTML = "You scored " + parseFloat(successfulThrows-1) + " points! That's an exact deviation of<br>" + parseFloat(successfulThrows-1)/2 + " times from the average player!<br><br><br><br>";
   var overlay = $('#overlay');
   $('.cmt223').append( "<a href='' style='color:red'><h3>Replay</h3></a>" );
 
@@ -321,11 +321,11 @@ function isObjOnObj(){
   thirdPointY = markertop;
 
   //get length of ray from center to new point
-  rayLength = Math.sqrt((Math.abs(parseInt(centerPointX) - parseInt(markerleft))*Math.abs(parseInt(centerPointX) - parseInt(markerleft))) + (Math.abs(parseInt(centerPointY) - parseInt(markertop))*Math.abs(parseInt(centerPointY) - parseInt(markertop))));
+  rayLength = Math.sqrt((Math.abs(parseFloat(centerPointX) - parseFloat(markerleft))*Math.abs(parseFloat(centerPointX) - parseFloat(markerleft))) + (Math.abs(parseFloat(centerPointY) - parseFloat(markertop))*Math.abs(parseFloat(centerPointY) - parseFloat(markertop))));
 
   //use board pos to get bounds
-  var boardl = parseInt(boardAllPos.left);
-  var boardr = (parseInt(boardAllPos.left)+parseInt(boardWidth));
+  var boardl = parseFloat(boardAllPos.left);
+  var boardr = (parseFloat(boardAllPos.left)+parseFloat(boardWidth));
 
   //get radius length
   radiusLength = Math.abs(boardl - boardr)/2;
@@ -421,56 +421,63 @@ $(document).ready(function () {
         //Define the magin number that makes this all work
         //Algorithm used: 2 * sqrt(R^2 - (OriginY-pointY)^2))
         magicNumber = (2*(Math.sqrt(((boardR*boardR)-((200-marker.style.top.slice(0,-2))*(200-marker.style.top.slice(0,-2)))))));
-        
-        //update the left-calc block
-        leftCalc.innerHTML = "Current Diameter: "+Math.floor(boardH)+"<br> Current Radius: " +Math.floor(boardH/2)+"<br><br><br>Calculation for chord:<br> "+`2*(`+Math.floor(boardR)+`^2 + (200 - `+ Math.floor(marker.style.top.slice(0,-2)) +`)^2)^.5`+"<br>= " + Math.floor(magicNumber)+ "";
-        
-        //show the new diameter
-        setTimeout(function(){
-          //set the diameter line to intersect hit point
-          line.style.top = marker.style.top; 
-          //resize line
-          line.width = magicNumber+"px";
-          //move to center with image
-          line.style.left = (((window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth)/2)-(line.width.slice(0,-2)/2))+"px";
-          //display line
-          line.style.display = "block";
-          
-          //animation to move the line to the center of the board
-          setTimeout(function(){
-          line.style.transform = "translate3d(0px, "+(-1)*(line.style.top.slice(0,-2)-200)+"px, 0px)"; 
-          }, 1000);
-        }, 3000);
-        
-        
-        //shrink the board
-        setTimeout(function(){
-          //get old height for margin adjustments
-          oldHeight = board.style.height.slice(0,-2);
-          resize(magicNumber); 
-          //set new board margins
-          board.style.marginTop=(oldCarryNumber+ ((oldHeight-magicNumber)/2))+"px";
-          oldCarryNumber = (oldCarryNumber+ ((oldHeight-magicNumber)/2));
-          marker.style.display = "none";}, 6000);
-        
-        //reset everything
-        setTimeout(function(){
-        line.style.display = "none";
 
-        //log that the throw was a successful throw
-        missedThrow = 0;
-          
-        //Update Curent Left Board Stats
-        leftCalc.innerHTML = "Current Diameter: "+Math.floor(board.style.height.slice(0,-2))+"<br> Current Radius: " +Math.floor(board.style.height.slice(0,-2)/2);
-
-        //Update Current Right Board Stats
-        rightCalc.innerHTML = "Current Score: "+(parseInt(successfulThrows+1))+"<br><br> Chance (on Average) that <br>a Random Person Would Get <br>Another Point : " + 100*Math.pow(.5, parseInt(successfulThrows+2)) + "%<br><br> Average Calculation Equation: <br> 100*(.5)^points+1";
-          
-        //reset line animation frames
-        line.style.top = 200;
-        line.style.transform = ""; 
-          }, 9000);
+        //if magic number is not valid: Die.
+        if(isNaN(magicNumber) || magicNumber < 2){
+          missedThrow = 1;
         }
+        else{
+        
+          //update the left-calc block
+          leftCalc.innerHTML = "Current Diameter: "+Math.floor(boardH)+"<br> Current Radius: " +Math.floor(boardH/2)+"<br><br><br>Calculation for chord:<br> "+`2*(`+Math.floor(boardR)+`^2 + (200 - `+ Math.floor(marker.style.top.slice(0,-2)) +`)^2)^.5`+"<br>= " + Math.floor(magicNumber)+ "";
+          
+          //show the new diameter
+          setTimeout(function(){
+            //set the diameter line to intersect hit point
+            line.style.top = marker.style.top; 
+            //resize line
+            line.width = magicNumber+"px";
+            //move to center with image
+            line.style.left = (((window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth)/2)-(line.width.slice(0,-2)/2))+"px";
+            //display line
+            line.style.display = "block";
+            
+            //animation to move the line to the center of the board
+            setTimeout(function(){
+            line.style.transform = "translate3d(0px, "+(-1)*(line.style.top.slice(0,-2)-200)+"px, 0px)"; 
+            }, 1000);
+          }, 3000);
+          
+          
+          //shrink the board
+          setTimeout(function(){
+            //get old height for margin adjustments
+            oldHeight = board.style.height.slice(0,-2);
+            resize(magicNumber); 
+            //set new board margins
+            board.style.marginTop=(oldCarryNumber+ ((oldHeight-magicNumber)/2))+"px";
+            oldCarryNumber = (oldCarryNumber+ ((oldHeight-magicNumber)/2));
+            marker.style.display = "none";}, 6000);
+          
+          //reset everything
+          setTimeout(function(){
+          line.style.display = "none";
+
+          //log that the throw was a successful throw
+          missedThrow = 0;
+            
+          //Update Curent Left Board Stats
+          leftCalc.innerHTML = "Current Diameter: "+Math.floor(board.style.height.slice(0,-2))+"<br> Current Radius: " +Math.floor(board.style.height.slice(0,-2)/2);
+
+          //Update Current Right Board Stats
+          rightCalc.innerHTML = "Current Score: "+(parseFloat(successfulThrows+1))+"<br><br> Chance (on Average) that <br>a Random Person Would Get <br>Another Point : " + 100*Math.pow(.5, parseFloat(successfulThrows+2)) + "%<br><br> Average Calculation Equation: <br> 100*(.5)^points+1";
+            
+          //reset line animation frames
+          line.style.top = 200;
+          line.style.transform = ""; 
+            }, 9000);
+        }
+      }
      } 
      else {
         //set timeout for setting the hasArced flipbit
