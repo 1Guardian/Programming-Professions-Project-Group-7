@@ -38,3 +38,10 @@ const webview = document.querySelector('webview')
 webview.addEventListener('console-message', (e) => {
   console.log('Guest page logged a message:', e.message)
 })
+
+//Changed loading method
+function loadwebview(){
+  var webview =$("<webview class='holder' id='mainPanel' style='display:none; top:2.5%; left:2.5%; height: 95%; width:95%; box-shadow:none;' src='../SectionSelection/index.html'></webview>");
+  $("#holderarea").append(webview);
+  startGame();
+}
